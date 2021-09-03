@@ -1,0 +1,25 @@
+<nav aria-label="...">
+    <ul class="pagination">
+        {{#each pages}}
+
+            {{#if before}}
+                <li class="page-item {{habilitado}}">
+                    <a class="page-link" href="{{link}}">Anterior</a>
+                </li>
+            {{else if next}}
+                <li class="page-item {{habilitado}}">
+                    <a class="page-link" href="{{link}}">Siguiente</a>
+                </li>
+            {{else if habilitado}}
+                    <li class="page-item active">
+                    <a class="page-link" href="{{link}}">{{numero}}</span></a>
+                </li>
+            {{else}}
+                <li class="page-item">
+                    <a class="page-link" href="{{link}}">{{numero}}</a>
+                </li>
+            {{/if}}
+
+        {{/each}}
+    </ul>
+</nav>

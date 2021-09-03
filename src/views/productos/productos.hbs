@@ -1,0 +1,537 @@
+<div class="container">
+    <div class="card-body">
+        <div class="row">
+        {{#if properties.retaceo}}
+                
+            <!--PRODUCTOS-->
+            <form action="/{{URL}}/add" method="post" enctype = "multipart/form-data">  
+                <div class="row">
+                        <div class="col-lg-2 col-md-12 col-sm-12">
+                            <div class="mb-2">
+                                    <h2>{{>leyenda1}}</h2>
+                                    <hr>
+                                    {{> guardarActualizar}}
+                                    
+                            </div>
+                             <div class="mb-2">
+                                    <a href="/{{URL}}/volver" class="btn btn-danger"><i class="fa fa-arrow-left" aria-hidden="true"></i> Volver</a>
+                             </div>
+                              <div class="mb-2">
+                                    <a href="/{{URL}}/finalizar" class="btn btn-info"><i class="fa fa-circle" aria-hidden="true"></i> Finalizar</a>
+                             </div>
+                        </div>
+                        <div class="col-md-3">
+                                <input type="hidden" name="id" value="{{properties.elemento.id}}">
+                                <input type="hidden" name="user_id" value="{{properties.elemento.user_id}}">
+                                <input type="hidden" name="id_retaceo" value="{{properties.elemento.id_retaceo}}">
+                                <div class="mb-3">
+                                    <label for="cd">Codigo de barras:</label>
+                                    <input id="cd" type="text" name="codigoBarras" class="form-control form-control-sm" placeholder="-" value="{{properties.elemento.codigoBarras}}" autofocus>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombre">Nombre:</label>
+                                    <input id="nombre" type="text" class="form-control form-control-sm" name="nombre" placeholder="-" value="{{properties.elemento.nombre}}">
+                                </div>
+                        
+                                <div class="mb-3">
+                                    <label for="marca">Unidad:</label>
+                                    <input id="unidad" type="text" name="unidad" class="form-control form-control-sm" placeholder="-" value="{{properties.elemento.unidad}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombre">Cantidad:</label>
+                                    <input id="cantidad" onkeyup="calcularFOBxCant(this)" type="number" class="form-control form-control-sm" name="cantidad" placeholder="-" value="{{properties.elemento.cantidad}}" >
+                                </div>
+                        
+                                <div class="mb-3">
+                                    <label for="precio">Costo Unitario:</label>
+                                    <input id="precio" onkeyup="validateDecimalInput(this)" type="decimal" name="precio" class="form-control form-control-sm" placeholder="0.00" value="{{properties.elemento.precio}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="foto1">Fotografias:</label>
+                                    <input id="foto1" accept="image/*" type="file" name="foto1" class="form-control form-control-sm" placeholder="Fotografia 1 (opcional)"  multiple>
+                                </div>
+                        
+                        
+                                <div class="mb-3">
+                                    <label for="descripcion">Descripcion:</label>
+                                    <textarea id="descripcion" type="text" name="descripcion" class="form-control form-control-sm" placeholder="-">{{properties.elemento.descripcion}}</textarea>
+                                </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 ">
+                                <h3>Datos Retaceo:</h3>
+                            </div>
+                            <div class="mb-3 ">
+                                <h6><b>Numero factura:</b> {{properties.retaceo.numfactura}}</h6>
+                            </div>
+                            <div class="mb-3">
+                                    <h6><b>Proveedor: </b> {{properties.retaceo.proveedor}}</h6>
+                            </div>
+                            <div class="mb-3">
+                                    <h6><b> factura: </b>{{properties.retaceo.fecfactura}}</h6>
+                            </div>
+                            <div class="mb-3">
+                                    <h6><b> Declaracion: </b>{{properties.retaceo.numdeclaracion}}</h6>
+                            </div>
+                            <div class="mb-3">
+                                <h6><b>Tipo de documento de importación: </b>{{properties.retaceo.tipdocimportacion}}</h6>
+                            </div>
+                                <div class="mb-3">
+                                    <h6><b> Aduana: </b>{{properties.retaceo.aduana}}</h6>
+                            </div>
+                                <div class="mb-3">
+                                    <h6><b> Pais origen: </b>{{properties.retaceo.pais}}</h6>
+                            </div>
+                                <div class="mb-3">
+                                    <h6><b> Transporte: </b>{{properties.retaceo.trasporte}}</h6>
+                            </div>
+                            <div class="mb-3">
+                                    <h6><b> Especificaciones: </b>{{properties.retaceo.especs}}</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3 ">
+                                <h3>Gastos de importacion:</h3>
+                            </div>
+                            <table class="table-local">
+                                <tr>
+                                    <td>
+                                        <h6><b>Flete internacional:</b></h6>
+                                    </td>
+                                    <td>
+                                         <td style="border: 0ch;" align="left"><h6>$</h6> </td><td style="border: 0ch;" align="right"><h6>{{fixed properties.retaceo.fleteinter}}</h6></td>
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6><b>Tramite aduanal:</b></h6>
+                                    </td>
+                                    <td>
+                                       <td style="border: 0ch;" align="left"><h6>$</h6> </td><td style="border: 0ch;" align="right"><h6>{{fixed properties.retaceo.tramaduanal}}</h6></td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6><b>DAI:</b></h6>
+                                    </td>
+                                    <td>
+                                       <td style="border: 0ch;" align="left"><h6>$</h6> </td><td style="border: 0ch;" align="right"><h6>{{fixed properties.retaceo.dai}}</h6></td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6><b>CEPA:</b></h6>
+                                    </td>
+                                    <td>
+                                       <td style="border: 0ch;" align="left"><h6>$</h6> </td><td style="border: 0ch;" align="right"><h6>{{fixed properties.retaceo.cepa}}</h6></td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6><b>Flete interno:</b></h6>
+                                    </td>
+                                    <td>
+                                       <td style="border: 0ch;" align="left"><h6>$</h6> </td><td style="border: 0ch;" align="right"><h6>{{fixed properties.retaceo.fleteinterno}}</h6></td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6><b>Cargadores y otros:</b></h6>
+                                    </td>
+                                    <td>
+                                       <td style="border: 0ch;" align="left"><h6>$</h6> </td><td style="border: 0ch;" align="right"><h6>{{fixed properties.retaceo.cargadoresyotrs}}</h6></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6><b>_______________________</b></h6>
+                                    </td>
+                                    <td>
+                                       <td style="border: 0ch;" align="left"><h6>_</h6> </td><td style="border: 0ch;" align="right"><h6>_________</h6></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6><b>Total:</b></h6>
+                                    </td>
+                                    <td>
+                                       <td style="border: 0ch;" align="left"><h6>$</h6> </td><td style="border: 0ch;" align="right"><h6>{{fixed properties.retaceo.total}}</h6></td>
+                                </tr>
+
+                            </table>
+                            
+                        </div>
+            </form>
+        </div>
+        <hr>
+            <!--LISTA DE PRODUCTOS-->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{#if items}}
+
+                        {{> search}}
+                        <br>
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                
+                                <th scope="col">imagenes</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Cod.Barras</th>
+                                <th scope="col">Cantidad</th>
+                                <th colspan="2" scope="col">Precio</th>
+                                <th colspan="2" scope="col">Total de gastos</th>
+                                <th colspan="2" scope="col">Costo total</th>
+                                <th colspan="2" scope="col">Costo unitario</th>
+                                {{!--<th scope="col">Ingreso</th>--}}
+                                <th colspan="2" scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {{#each items}}
+                                {{#if selectFlag}}
+                                <tr class="table-primary">
+                                {{else}}
+                                <tr>
+                                {{/if}} 
+                                        <th style="text-align: center; "> {{{id}}}</th>
+                                        <td style="width: 30%; height: 20px;">
+                                            <table class="table-image">
+                                            
+                                                {{#each grupo}}
+                                                <tr>
+                                                    {{#each this}}
+                                                    <td style="text-align: center;">
+                                                        <img src="{{this}}" class="img-fluid img-thumbnail img-alarge" alt="Sheep"/>
+                                                    </td>
+                                                {{/each}}
+                                                </tr>
+                                                {{/each}}
+                                            </table>
+
+                                        </td>
+                                        <td style="text-align: center; ">{{nombre}}</td>
+                                    
+                                        <td>{{codigoBarras}}</td>
+                                        <td>{{cantidad}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">{{fixed precio}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">{{fixed total_gastos}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">{{fixed costo_total}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">{{fixed costo_unitario}}</td>
+                                    {{!--<td>{{timeago created_at}}</td>--}}
+                                        <td align="center">
+                                            <a  href="/{{../URL}}/edit/{{id}}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        </td>
+                                        <td align="center">
+                                            <a  href="/{{../URL}}/delete/{{id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+
+                        {{> pagination}}
+
+                        {{else}}
+                        <br>
+                            <div class="cold-md-4 mx-auto">
+                                    <div class="card card-body text">
+                                            <p>No hay {{URL}} agregados...</p>
+                                    </div> 
+                            </div>   
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            
+
+        {{else}}
+        <!--RETACEO-->
+            <form action="/{{URL}}/addRetaceo" method="post">
+                <div class="row">
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+                            <div class="mb-3">
+                                <h1>Retaceo: </h1>   
+                                {{#if properties.elemento}}
+                                <button class="btn btn-warning btn-block">
+                                    <i class="fas fa-edit"></i> Actualizar
+                                </button>
+                                {{else}}
+                                <button class="btn btn-info btn-block">
+                                    <i class="fas fa-save"></i> Guardar
+                                </button>
+                                {{/if}}
+                                <hr>
+                            </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="hidden" name="id" value="{{properties.elemento.id}}">
+                        <div class="mb-3">
+                            <label for="numfactura">Numero Factura:</label>
+                            <input type="numfactura" name="numfactura" id="numfactura" class="form-control form-control-sm" value="{{properties.elemento.numfactura}}">
+                        </div>
+                            <!--AGREGAR QUE EL PROVEEDOR SE AUTOCOMPLETE-->
+                            <div class="mb-3">
+                            <label for="proveedor">Proveedor:</label>
+                            <input type="text" name="proveedor" id="proveedor" class="form-control form-control-sm" autofocus value="{{properties.elemento.proveedor}}">
+                        </div>
+                <!--HACER QUE LA FECHA SE AUTOCOLOQUE EL DIA DE HOY-->
+                        <div class="mb-3">
+                            <label for="fecfactura">Fecha Factura:</label>
+                            <input type="fecfactura" name="fecfactura" id="fecfactura" class="form-control form-control-sm" value="{{properties.elemento.fecfactura}}">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="numdeclaracion">Declaracion No.:</label>
+                                <input type="numdeclaracion" name="numdeclaracion" id="numdeclaracion" class="form-control form-control-sm" value="{{properties.elemento.numdeclaracion }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipdocimportacion">Tipo de documento de importación:</label>
+                                <input type="tipdocimportacion" name="tipdocimportacion" id="tipdocimportacion" class="form-control form-control-sm"  value="{{properties.elemento.tipdocimportacion }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="aduana">Aduana:</label>
+                                <input type="aduana" name="aduana" id="aduana" class="form-control form-control-sm" value="{{properties.elemento.aduana }}">
+                            </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label for="pais">Pais origen:</label>
+                            <input type="pais" name="pais" id="pais" class="form-control form-control-sm" value="{{properties.elemento.pais }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="trasporte">Transporte:</label>
+                            <input type="trasporte" name="trasporte" id="trasporte" class="form-control form-control-sm" value="{{properties.elemento.trasporte }}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="especs">Especificaciones:</label>
+                            <input type="especs" name="especs" id="especs" class="form-control form-control-sm" value="{{properties.elemento.especs }}">
+                        </div>
+                    </div>
+                </div>
+
+            
+
+                <div class="row">
+                    <div class="col-lg-2 col-md-12 col-sm-12">
+                        <div class="mb-3">
+                            <h3>Gastos de importacion:</h3>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                                <label for="fleteinter">Flete internacional:</label>
+                                <input type="text" onkeyup="validateDecimalInput(this)" name="fleteinter" id="fleteinter" placeholder="$ 0.00" class="form-control form-control-sm" value="{{properties.elemento.fleteinter }}">
+                        </div>
+                        <div class="mb-3">
+                                <label for="tramaduanal">Tramite aduanal:</label>
+                                <input type="text" onkeyup="validateDecimalInput(this)" name="tramaduanal" id="tramaduanal" placeholder="$ 0.00" class="form-control form-control-sm" value="{{properties.elemento.tramaduanal }}">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                                <label for="dai">DAI:</label>
+                                <input type="text" onkeyup="validateDecimalInput(this)" name="dai" id="dai" placeholder="$ 0.00" class="form-control form-control-sm"  value="{{properties.elemento.dai }}">
+                        </div>
+                        <div class="mb-3">
+                                <label for="cepa">CEPA:</label>
+                                <input type="text" onkeyup="validateDecimalInput(this)" name="cepa" id="cepa" placeholder="$ 0.00" class="form-control form-control-sm" value="{{properties.elemento.cepa }}">
+                        </div>
+                    </div>`
+                        <div class="col-md-2">
+                        <div class="mb-3">
+                                <label for="fleteinterno">Flete interno:</label>
+                                <input type="text" onkeyup="validateDecimalInput(this)" name="fleteinterno" id="fleteinterno" placeholder="$ 0.00" class="form-control form-control-sm" value="{{properties.elemento.fleteinterno }}">
+                        </div>
+                        <div class="mb-3">
+                                <label for="cargadoresyotrs">Cargadores y otros:</label>
+                                <input type="text" onkeyup="validateDecimalInput(this)" name="cargadoresyotrs" id="cargadoresyotrs" placeholder="$ 0.00" class="form-control form-control-sm" value="{{properties.elemento.cargadoresyotrs }}">
+                        </div>
+                        </div>
+
+                        <div class="col-md-2">
+                        <hr>
+                        <!--ALINEAR VALORES A LA IZQUIERDA-->
+                        <h5 id="lbl_totgastos">Total gastos:  $ 0.0 </h5>
+                        <hr>
+                        <!--
+                        <h5 id="lbl_totgastos">Total factura: $ 0.0 </h5>
+                        <hr/>
+                        <h5 id="lbl_totgastos">Total      : $ 0.0 </h5>
+                        -->
+                        </div>
+                </div>
+            </form>
+            <hr>
+        <!--Lista RETACEO-->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{#if items}}
+
+                        {{> search}}
+                        <br>
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                <th scope="col">Numero de factura</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Pais</th>
+                                <th colspan="2" scope="col">Total</th>
+                                {{!--<th scope="col">Ingreso</th>--}}
+                                <th colspan="2" scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {{#each items}}
+                                {{#if selectFlag}}
+                                <tr class="table-primary">
+                                {{else}}
+                                <tr>
+                                {{/if}} 
+                                        <th style="text-align: center; "> {{{numfactura}}}</th>
+                                        <td style="text-align: center; ">{{proveedor}}</td>
+                                    
+                                        <td>{{fecfactura}}</td>
+                                        <td style="text-align: center; ">{{pais}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">{{fixed 10.80}}</td>
+                                    {{!--<td>{{timeago created_at}}</td>--}}
+                                        <td align="center">
+                                            <a href="/{{../URL}}/edit/{{id}}"<i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        </td>
+                                        <td align="center">
+                                            <a  href="/{{../URL}}/delete/{{id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+
+                        {{> pagination}}
+
+                        {{else}}
+                        <br>
+                            <div class="cold-md-4 mx-auto">
+                                    <div class="card card-body text">
+                                            <p>No hay retaceos agregados...</p>
+                                    </div> 
+                            </div>   
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+
+
+        {{/if}}
+
+                
+    </div>
+</div>
+<br>
+    
+
+
+<script>
+
+calcularFOBxPrec = (e)=>{
+    precioU = e.value;
+
+    if(validateDecimal(precioU)){
+        
+    var ctotalfob = document.getElementById('ctotalfob');
+    var cantidad =  document.getElementById('cantidad').value;
+
+
+        try{
+            ctotalfob.innerText = '$ '+ parseFloat(precioU*cantidad).toFixed(2);
+        } catch(ex){
+            ctotalfob.innerText = '$ -'
+        }
+    }
+    else {
+        e.value = '';
+    }
+}
+calcularFOBxCant = (e)=>{
+    cantidad = e.value;
+
+    if(validateInt(cantidad)){
+        
+    var ctotalfob = document.getElementById('ctotalfob');
+    var precioU =  document.getElementById('cantidad').value;
+
+
+        try{
+            ctotalfob.innerText = '$ '+ parseFloat(precioU*cantidad).toFixed(2);
+        } catch(ex){
+            ctotalfob.innerText = '$ -'
+        }
+    }
+    else {
+        e.value = '';
+    }
+} 
+
+
+validateDecimalInput = (e)=>{
+    if(!validateDecimal(e.value)){
+      e.value = '';
+    } else {
+        sumar(e);
+    }
+}
+
+
+sumar = (e)=>{
+    if(document.getElementById('fleteinter')){
+        var fleteinter      = document.getElementById('fleteinter');
+        var tramaduanal     = document.getElementById('tramaduanal');
+        var dai             = document.getElementById('dai');
+        var cepa            = document.getElementById('cepa');
+        var fleteinterno    = document.getElementById('fleteinterno');
+        var cargadoresyotrs = document.getElementById('cargadoresyotrs');
+
+        var total = parseFloat( (fleteinter.value?parseFloat(fleteinter.value):0.00)+
+                                (tramaduanal.value?parseFloat(tramaduanal.value):0.00)+
+                                (dai.value?parseFloat(dai.value):0.00)+
+                                (cepa.value?parseFloat(cepa.value):0.00)+
+                                (fleteinterno.value?parseFloat(fleteinterno.value):0.00)+
+                                (cargadoresyotrs.value?parseFloat(cargadoresyotrs.value):0.00));
+
+
+        
+        document.getElementById('lbl_totgastos').innerHTML = 'Total gastos:  $ '+total.toFixed(2);
+    }
+}
+
+
+
+
+function validateDecimal(valor) {
+    var RE = /^\d*\.?\d*$/;
+    if (RE.test(valor)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validateInt(numero){
+    if (numero - Math.floor(numero) == 0) {
+       return true;
+    } else {
+        return false;
+    }
+}
+
+$('document').ready(()=>{
+    console.log('TTT')
+    sumar();
+});
+    
+</script>
+

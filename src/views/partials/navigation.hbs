@@ -1,0 +1,60 @@
+<nav class="celeste navbar navbar-expand-lg navbar-dark bg-dark ">
+  <div class="container-fluid">
+    {{#if user}}
+    <a class="navegacion navbar-brand" href="#">Empresa</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        {{!--
+        <li class="nav-item">
+          <a class="navegacion nav-link active" aria-current="page" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        --}}
+
+
+        {{!--
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+        --}}
+        <li class="nav-item">
+          <a class="navegacion nav-link active" aria-current="page" href="/dashboard"><i class="fa fa-power-off" aria-hidden="true"></i>  Encendido</a>
+        </li>
+        <li class="nav-item">
+          <a class="navegacion nav-link active" aria-current="page" href="/profile"><i class="fa fa-user" aria-hidden="true"></i> Perfil</a>
+        </li>
+        <li class="nav-item">
+          <a class="navegacion nav-link active" aria-current="page" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="-" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
+    </div>
+    {{else}}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="navegacion nav-link active" aria-current="page" href="/signin"><i class="fa fa-user" aria-hidden="true"></i> Iniciar Sesion</a>
+        </li>
+        <li class="nav-item">
+          <a class="navegacion nav-link active" aria-current="page" href="/signup"><i class="fa fa-sign-in" aria-hidden="true"></i> Registrarse</a>
+        </li>
+      </ul>
+    </div>
+    
+    {{/if}}
+    
+
+  </div>
+</nav>

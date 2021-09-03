@@ -1,0 +1,236 @@
+<div class="container">
+    
+<h1>Listado de productos</h1>
+<hr>
+ <!--LISTA DE PRODUCTOS-->
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                        {{#if productos}}
+
+                        {{> search}}
+                        <br>
+                        <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-sm">
+                            <thead>
+                                <tr>
+                                <th scope="col">#</th>
+                                
+                                <!--<th scope="col">imagenes</th>-->
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Cod.Barras</th>
+                                <th scope="col">Cantidad</th>
+                                <th colspan="2" scope="col">Precio</th>
+                                <th colspan="2" scope="col">Total de gastos</th>
+                                <th colspan="2" scope="col">Costo total</th>
+                                <th colspan="2" scope="col">Costo unitario</th>
+                                <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {{#each productos}}
+                                {{#if selectFlag}}
+                                <tr  class="table-primary">
+                                {{else}}
+                                <tr >
+                                {{/if}} 
+                                        <th style="text-align: center; "> {{{id}}}</th>
+                                        <td id="img-{{id}}" style="width: 30%; height: 20px; display: none;">
+                                            <table class="table-image">
+                                            
+                                                {{#each grupo}}
+                                                <tr>
+                                                    {{#each this}}
+                                                    <td style="text-align: center;">
+                                                        <img src="{{this}}" class="img-fluid img-thumbnail img-alarge" alt="Sheep"/>
+                                                    </td>
+                                                {{/each}}
+                                                </tr>
+                                                {{/each}}
+                                            </table>
+
+                                        </td>
+                                        <td style="text-align: center; ">{{nombre}}</td>
+                                    
+                                        <td>{{codigoBarras}}</td>
+                                        <td>{{cantidad}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td class=".d-sm-none .d-md-block" style="border: 0ch;" align="right">{{fixed precio}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">{{fixed total_gastos}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">{{fixed costo_total}}</td>
+                                        <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">{{fixed costo_unitario}}</td>
+                                        <td><button id="{{id}}" onclick="modal(this)" class="btn btn-sm btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
+                                        <td style="display: none;">{{fixed costo_total_fob}}</td>
+                                        <td style="display: none;">{{fixed flete_internacional}}</td>
+                                        <td style="display: none;">{{fixed costo_total_cif}}</td>
+                                        <td style="display: none;">{{fixed agente_aduanal}}</td>
+                                        <td style="display: none;">{{fixed dai}}</td>
+                                        <td style="display: none;">{{fixed cepa}}</td>
+                                        <td style="display: none;">{{fixed flete_interno}}</td>
+                                        <td style="display: none;">{{fixed cargadores_y_otros}}</td>
+                                        <td style="display: none;">{{fixed total_gastos}}</td>
+                                        <td style="display: none;">{{fixed costo_total}}</td>
+                                        <td style="display: none;">{{fixed costo_unitario}}</td>
+                                        <td style="display: none;">{{fixed cuadre_cu_unidad}}</td>
+                                        <td style="display: none;">{{descripcion}}</td>
+                                    </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                        </div>
+
+
+                        {{> pagination}}
+
+                        {{else}}
+                        <br>
+                            <div class="cold-md-4 mx-auto">
+                                    <div class="card card-body text">
+                                            <p>No hay {{URL}} agregados...</p>
+                                    </div> 
+                            </div>   
+                        {{/if}}     
+                    </div>
+                </div>
+            </div>
+</div>
+
+<!-- Large modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg">Large modal</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      ...
+    </div>
+  </div>
+</div>
+
+<!-- Small modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm">Small modal</button>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      ...
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 style="color: black;" class="modal-title" id="exampleModalLabel" >Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-lg-4">
+            <b>Detalle de gastos e impuestos</b>
+            <table class="table-modal">
+
+                <tr class="table-modal">
+                    <td class="table-modal"><b>Costo total FOB</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="costo_total_fob" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>Flete internacional</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="flete_internacional" style="border: 0ch;" align="right">0.00</td>                  
+                </tr>
+               <tr class="table-modal">
+                    <td class="table-modal"><b>Costo total CIF</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="costo_total_cif" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+               <tr class="table-modal">
+                    <td class="table-modal"><b>Agente aduanal</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="agente_aduanal" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>DAI</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="dai" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>CEPA</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="cepa" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>Flete interno</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="flete_interno" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>Cargadores y otros</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="cargadores_y_otros" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>Total de gastos</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="total_gastos" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>Costo total</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="costo_total" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>Costo unitario</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="costo_unitario" style="border: 0ch;" align="right">0.00</td>
+                </tr>
+                <tr class="table-modal">
+                    <td class="table-modal"><b>Cuadre C.U. por Unidad</b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td id="cuadre_cu_unidad" style="border: 0ch;" align="right">0.00</td>
+                <tr>
+                    <td><b>Total: </b></td>
+                    <td style="border: 0ch;" align="left">$ </td><td style="border: 0ch;" align="right">0.00</td>
+                </tr>
+            </table>
+          </div>
+           <div class="col-md-6 col-sm-12 col-lg-8">
+             <b>Imagenes</b>
+              <table id="images" style="border: 1px solid;">
+                
+              </table>
+              <b>Descripcion</b>
+              <p style="color: black;"><i id="descripcion"> </i></p>
+            </div>
+            
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    function modal(e){
+        
+        var xx = document.getElementById(e.id);
+        
+        var row = xx.parentElement.parentElement;
+        document.getElementById('exampleModalLabel').innerHTML = row.children[2].innerText;
+        document.getElementById('images').innerHTML = document.getElementById('img-'+e.id).innerHTML;
+        console.log(document.getElementById('img-'+e.id));
+
+        document.getElementById('costo_total_fob').innerHTML      =  row.children[14].innerText;
+        document.getElementById('flete_internacional').innerHTML  =  row.children[15].innerText;
+        document.getElementById('costo_total_cif').innerHTML      =  row.children[16].innerText;
+        document.getElementById('agente_aduanal').innerHTML       =  row.children[17].innerText;
+        document.getElementById('dai').innerHTML                  =  row.children[18].innerText;
+        document.getElementById('cepa').innerHTML                 =  row.children[19].innerText;
+        document.getElementById('flete_interno').innerHTML        =  row.children[20].innerText;
+        document.getElementById('cargadores_y_otros').innerHTML   =  row.children[21].innerText;
+        document.getElementById('total_gastos').innerHTML         =  row.children[22].innerText;
+        document.getElementById('costo_total').innerHTML          =  row.children[23].innerText;
+        document.getElementById('costo_unitario').innerHTML       =  row.children[24].innerText;
+        document.getElementById('cuadre_cu_unidad').innerHTML     =  row.children[25].innerText;
+        document.getElementById('descripcion').innerHTML          =  row.children[26].innerText;
+
+
+    }
+</script>

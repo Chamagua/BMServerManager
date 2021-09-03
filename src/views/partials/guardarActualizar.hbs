@@ -1,0 +1,12 @@
+{{#if properties.elemento}}
+    <button type="submit" class="btn btn-success btn-block">
+        <i class="fas fa-save"></i> Actualizar
+    </button><hr/>
+    <button type="button" onclick="location.href='/{{URL}}';" class="btn btn-warning">
+        <i class="fas fa-brush"></i> Limpiar
+    </button>
+{{else}}
+    <button class="btn btn-success btn-block">
+        <i class="fas fa-save"></i> Guardar
+    </button>
+{{/if}}

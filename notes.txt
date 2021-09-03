@@ -1,0 +1,28 @@
+## Inciar un proyecto 
+    npm init --yes
+    npm i express express-handlebars express-session mysql express-mysql-session morgan bcryptjs passport passport-local timeago.js connect-flash express-validator
+
+## instalacion mysql 
+    https://pimylifeup.com/raspberry-pi-mysql/
+    
+## Creacion de BD MYSQL usuarios y acceso remoto
+    despues de instalar mariadb se ingresan los siguientes comandos
+    $  sudo mysql -u root -p
+    >   CREATE DATABASE exampledb;
+    >   CREATE USER 'bmiranda'@'localhost' IDENTIFIED BY 'bryan2423';
+    >   GRANT ALL PRIVILEGES ON exampledb.* TO 'bmiranda'@'localhost';
+    >   FLUSH PRIVILEGES;
+
+    $   cd /etc/mysql/mariadb.conf.d
+    $   sudo nano 50-server.cnf 
+    // editar la linea bind-address y ponerle 0.0.0.0 o un *
+
+
+
+//11. Protegiendo Rutas del servidor: 03:12:12
+
+
+access token : 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
+
+
+
