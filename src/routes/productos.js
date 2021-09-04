@@ -5,7 +5,8 @@ const {getItems,getActualDate} = require('../lib/helpers');
 const pool = require('../database');
 const {isLoggedIn} =require('../lib/auth');
 const {upload} = require('../lib/multer');
-var fs = require('fs')
+var fs = require('fs');
+
 
 //Variables Globales
 const URL = 'productos';
@@ -24,6 +25,20 @@ let items_session=null;
 
 router.get('/',isLoggedIn, async (req,res)=>{
     properties.elemento = null;
+
+
+    try {
+        const dir = await opendir('/');
+        for await (const dirent of dir)
+          console.log(dirent.name);
+      } catch (err) {
+
+        console.error(err);
+      }
+    
+
+
+
     res.redirect(`/${URL}/page/1/?search_text=$`);
 }); 
 

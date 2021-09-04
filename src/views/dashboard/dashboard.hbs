@@ -16,8 +16,33 @@
             <h4>PC Work</h4>
                 <button class="btn btn-lg btn-warning"><i class="fa fa-power-off" aria-hidden="true"></i> Encender</button>
            </form>
+           <br>
+
+           {{#each files}}
+                <div class="list-group">
+                    <form method="post" action="/dashboard/">
+                        
+
+                        {{#if isDir}}
+                            <input type="hidden" name="directory" value="{{path}}"/>
+                            <input type="hidden" name="isDir" value="{{isDir}}"/>
+                            <input type="hidden" name="type" value="dir"/>
+                            <button href="#" class="list-group-item list-group-item-action"><i class="fa fa-folder" aria-hidden="true"></i> {{file}}</button>
+                        {{else}}
+                            <input type="hidden" name="directory" value="{{path}}"/>
+                            <input type="hidden" name="isDir" value="{{isDir}}"/>
+                            <input type="hidden" name="type" value="file"/>
+                            <button href="#" class="list-group-item list-group-item-action"> {{file}}</button>
+                        {{/if}}
+
+                    </form>
+                </div>
+            {{/each}}
         </div>
     </div>
 </div>
+
+
+
 
 
